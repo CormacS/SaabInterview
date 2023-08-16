@@ -52,7 +52,7 @@ namespace TicketManagementSystem
 
             return priority;
         }
-        private void GetPrice(Priority priority, bool isPayingCustomer, out double price, out User accountManager)
+        private void CalculatePrice(Priority priority, bool isPayingCustomer, out double price, out User accountManager)
         {
             price = 0;
             accountManager = null;
@@ -101,7 +101,7 @@ namespace TicketManagementSystem
             double price;
             User accountManager;
 
-            GetPrice(priority, isPayingCustomer, out price, out accountManager);
+            CalculatePrice(priority, isPayingCustomer, out price, out accountManager);
 
             var ticket = new Ticket()
             {
