@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.808.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManagementSystem", "TicketManagementSystem\TicketManagementSystem.csproj", "{009DACFF-7BBA-4A46-95CE-4F7E2707C5ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Email", "Email", "{AA18A391-C632-489C-B3F2-EA0742EB72AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "Email\EmailService\EmailService.csproj", "{4C60F1BA-81F5-40A6-B6C6-DDE46B3963E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.Test", "Email\EmailService.Test\EmailService.Test.csproj", "{52DA3E00-210E-486F-AA7A-1E5C7CB14F2D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{009DACFF-7BBA-4A46-95CE-4F7E2707C5ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{009DACFF-7BBA-4A46-95CE-4F7E2707C5ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{009DACFF-7BBA-4A46-95CE-4F7E2707C5ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{009DACFF-7BBA-4A46-95CE-4F7E2707C5ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C60F1BA-81F5-40A6-B6C6-DDE46B3963E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C60F1BA-81F5-40A6-B6C6-DDE46B3963E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C60F1BA-81F5-40A6-B6C6-DDE46B3963E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C60F1BA-81F5-40A6-B6C6-DDE46B3963E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52DA3E00-210E-486F-AA7A-1E5C7CB14F2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DA3E00-210E-486F-AA7A-1E5C7CB14F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DA3E00-210E-486F-AA7A-1E5C7CB14F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DA3E00-210E-486F-AA7A-1E5C7CB14F2D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C60F1BA-81F5-40A6-B6C6-DDE46B3963E2} = {AA18A391-C632-489C-B3F2-EA0742EB72AB}
+		{52DA3E00-210E-486F-AA7A-1E5C7CB14F2D} = {AA18A391-C632-489C-B3F2-EA0742EB72AB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06BC147B-FF8A-49A9-B87D-1F33DFEB3480}
+	EndGlobalSection
+EndGlobal

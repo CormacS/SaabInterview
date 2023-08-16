@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "q3+hdnLGbqxJWPwyacqf+HvQLCzAI6jMop0SfsBsa2zg+6Ht5HH4aQi+itNS+WLxFMN6AEeipo6aUKHEXqf8Nw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\corma\\Source\\Repos\\interview-test\\TicketManagementSystem\\Email\\EmailService\\EmailService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\corma\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\corma\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\corma\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
