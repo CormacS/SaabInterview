@@ -26,42 +26,45 @@ namespace TicketManagementSystem
             return user;
         }
 
-        public int CreateTicket(string t, Priority p, string assignedTo, string desc, DateTime d, bool isPayingCustomer)
+        private bool ShouldRaisePriority(string title, DateTime date)
         {
-            // Check if t or desc are null or if they are invalid and throw exception
-            if (string.IsNullOrEmpty(t) || string.IsNullOrEmpty(desc))
+            string[] keywords = { "Crash", "Important", "Failure" };
+            bool containsKeyword = keywords.Any(keyword => title.Contains(keyword));
+
+            if (containsKeyword || date < DateTime.UtcNow - TimeSpan.FromHours(1))
             {
-                throw new InvalidTicketException("Title or description were null");
+                return true;
             }
 
-            User user = GetUser(assignedTo);
+            return false;
+        }
 
-            bool priorityRaised = ShouldRaisePriority(t, d);
-
-            if (priorityRaised)
+        private Priority RaisePriority(Priority priority)
+        {
+            if (priority == Priority.Low)
             {
-                p = RaisePriority(p);
+                priority = Priority.Medium;
+            }
+            else if (priority == Priority.Medium)
+            {
+                priority = Priority.High;
             }
 
-
-            if (p == Priority.High)
-            {
-                var emailService = new EmailServiceProxy();
-                emailService.SendEmailToAdministrator(t, assignedTo);
-            }
-
-            double price = 0;
-            User accountManager = null;
+            return priority;
+        }
+        private void GetPrice(Priority priority, bool isPayingCustomer, out double price, out User accountManager)
+        {
+            price = 0;
+            accountManager = null;
             if (isPayingCustomer)
             {
                 // Only paid customers have an account manager.
                 using (var ur = new UserRepository())
                 {
                     accountManager = ur.GetAccountManager();
-
                 }
 
-                if (p == Priority.High)
+                if (priority == Priority.High)
                 {
                     price = 100;
                 }
@@ -70,14 +73,43 @@ namespace TicketManagementSystem
                     price = 50;
                 }
             }
+        }
+
+        public int CreateTicket(string title, Priority priority, string assignedTo, string desc, DateTime date, bool isPayingCustomer)
+        {
+            // Check if title or desc are null or if they are invalid and throw exception
+            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(desc))
+            {
+                throw new InvalidTicketException("Title or description were null");
+            }
+
+            User user = GetUser(assignedTo);
+
+            bool priorityRaised = ShouldRaisePriority(title, date);
+
+            if (priorityRaised)
+            {
+                priority = RaisePriority(priority);
+            }
+
+            if (priority == Priority.High)
+            {
+                var emailService = new EmailServiceProxy();
+                emailService.SendEmailToAdministrator(title, assignedTo);
+            }
+
+            double price;
+            User accountManager;
+
+            GetPrice(priority, isPayingCustomer, out price, out accountManager);
 
             var ticket = new Ticket()
             {
-                Title = t,
+                Title = title,
                 AssignedUser = user,
-                Priority = p,
+                Priority = priority,
                 Description = desc,
-                Created = d,
+                Created = date,
                 PriceDollars = price,
                 AccountManager = accountManager
             };
@@ -88,48 +120,9 @@ namespace TicketManagementSystem
             return id;
         }
 
-        private static bool ShouldRaisePriority(string t, DateTime d)
-        {
-            string[] keywords = { "Crash", "Important", "Failure" };
-            bool containsKeyword = keywords.Any(keyword => t.Contains(keyword));
-
-            if (containsKeyword || d < DateTime.UtcNow - TimeSpan.FromHours(1))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private static Priority RaisePriority(Priority p)
-        {
-            if (p == Priority.Low)
-            {
-                p = Priority.Medium;
-            }
-            else if (p == Priority.Medium)
-            {
-                p = Priority.High;
-            }
-
-            return p;
-        }
-
         public void AssignTicket(int id, string username)
         {
-            User user = null;
-            using (var ur = new UserRepository())
-            {
-                if (username != null)
-                {
-                    user = ur.GetUser(username);
-                }
-            }
-
-            if (user == null)
-            {
-                throw new UnknownUserException("User not found");
-            }
+            User user = GetUser(username);
 
             var ticket = TicketRepository.GetTicket(id);
 
